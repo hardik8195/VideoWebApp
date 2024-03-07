@@ -4,6 +4,8 @@ import NavBar from "./components/NavBar"
 import "./index.css"
 import Home from "./pages/Home"
 import Video from "./pages/Video"
+import Signup from "./pages/Signup"
+import Login from "./pages/Login"
 
 
 export default function App() {
@@ -22,6 +24,8 @@ export default function App() {
                 <Route path="video">
                   <Route path=":id" element={<Video />} />
                 </Route>
+                <Route path="register" element={<Signup />} />
+                <Route path="login" element = {<Login />} />
               </Route>
             </Routes>
           </div>

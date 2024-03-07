@@ -6,9 +6,11 @@ import HistoryIcon from '@mui/icons-material/History';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import Button from "./Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Menubar() {
+  const navigate = useNavigate();
+  const user = 
   return (
     <div className="flex-1 pr- bg-[#202020ec]">
       <div className="p-4   h-screen ">
@@ -50,7 +52,7 @@ export default function Menubar() {
 
           <hr className="m-3" />
           <p className=" text-white">if you want to explore new things plz sign in</p>
-          <Button>Signin</Button>
+          <Button onClick={()=>navigate("/login")}>Signin</Button>
         </ul>
       </div>
     </div>
