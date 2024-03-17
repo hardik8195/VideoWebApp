@@ -8,7 +8,7 @@ export default function Home({type}){
 
     useEffect(()=>{
         (async () => {
-            const res = await axios.get(`/api/v1/videos/${type}`);
+            const res = await axios.get(`/api/v1/videos/${type}`)
             setVideos(res.data);
         })()
     },[type])

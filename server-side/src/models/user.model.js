@@ -29,10 +29,6 @@ const userSchema = new mongoose.Schema(
             type: String, // cloudinary url
             required: true,
         },
-        coverImage:{
-            type:String,
-            required:true
-        },
         password: {
             type: String,
             required: [true, 'Password is required']

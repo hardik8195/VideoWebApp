@@ -6,9 +6,9 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { User } from "../models/user.model.js";
 
 const addvideo = asyncHandler(async (req, res) => {
-    const { title, content } = req.body;
+    const { title} = req.body;
 
-    if (![title, content].every(Boolean)) {
+    if (![title].every(Boolean)) {
         throw new ApiError(400, "All fields are required!");
     }
     const videoLocalPath = req.files?.videoFile[0]?.path
@@ -27,7 +27,6 @@ const addvideo = asyncHandler(async (req, res) => {
     const video = await Video.create({
         userId:req.user._id,
         title,
-        content,
         videoFile: videoFile?.url,
         thumbnail:thumbnail?.url,
         duration: videoFile.duration

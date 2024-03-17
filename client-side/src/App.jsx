@@ -6,6 +6,7 @@ import Home from "./pages/Home"
 import Video from "./pages/Video"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
+import UploadVideo from "./pages/UploadVideo"
 
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
                 </Route>
                 <Route path="register" element={<Signup />} />
                 <Route path="login" element = {<Login />} />
+                <Route path="addVideo" element = {<UploadVideo/>} />
               </Route>
             </Routes>
           </div>
