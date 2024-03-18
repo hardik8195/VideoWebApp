@@ -12,7 +12,7 @@ export default function Card({video}){
         })()
     },[video.userId])
     return (
-        <Link to="/video/test" style={{textDecoration:"none"}}>
+        <Link to={`/video/${video._id}`} style={{textDecoration:"none"}}>
         <div className="w-360 mb-45 cursor-pointer">
             <img className="w-full h-202" src={video.thumbnail}/>
             <div className="my-3 flex gap-2">
@@ -24,9 +24,7 @@ export default function Card({video}){
                 <div className="flex gap-3">
                     <p>{video.views} views -</p>
                     <p>{format(video.createdAt)}</p>
-                </div>
-                
-                
+                </div>     
             </div>
         </div>
         </Link>
