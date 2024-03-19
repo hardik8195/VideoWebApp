@@ -61,9 +61,7 @@ const getvideo = asyncHandler(async (req, res) => {
 
     return res
     .status(200)
-    .json(
-        new ApiResponse(201,video,"finded your video")
-    )
+    .json(video)
 })
 
 const addView = asyncHandler(async (req, res) => { 

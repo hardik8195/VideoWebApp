@@ -2,30 +2,42 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Button from '../components/Button';
 import Recommendation from '../components/Recommendation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setVideo } from '../store/videoSlice';
 export default function Video() {
-    const path = useLocation()
-    console.log(path)
+    const path = useLocation().pathname.split("/")[2]
 
-    // useEffect(()=>{
-    //     (async ()=> {
-    //         const videoRes = await axios.get("/api/v1/videos/find/")
-    //     })()
-    // },[])
+    const {video} = useSelector((state)=>state.video)
+    const dispatch = useDispatch()
+    const [channel,setChannel] = useState({})
+
+    useEffect(()=>{
+        (async ()=> {
+            try {
+                const videoRes = await axios.get(`/api/v1/videos/find/${path}`)
+                const channelRes = await axios.get(`/api/v1/users/find/${videoRes.data.userId}`)
+                dispatch(setVideo(videoRes.data))
+                setChannel(channelRes.data)
+            } catch (error) {
+                console.log(error)
+            }
+        })()
+    },[path,dispatch])
     return (
         <div className="flex gap-5">
             <div className="flex-5">
                 <iframe
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    src={video.videoFile}
                     frameborder="0"
                     allowfullscreen
                     width="100%"
                     height="550"
                 />
                 <div className="text-white">
-                    <h1>Title</h1>
+                    <h1>{video.title}</h1>
                     <div className="flex">
                         <div className="flex-1">
                             <p>7000 views . 22 june</p>
@@ -44,9 +56,9 @@ export default function Video() {
                     <hr className='my-4' />
                     <div className='flex my-3'>
                         <div className='flex gap-2 flex-1'>
-                            <img className="w-9 h-9 border rounded-full bg-black" />
+                            <img src={channel.avatar} className="w-9 h-9 border rounded-full bg-black" />
                             <div>
-                                <h1 style={{ fontSize: 'large' }}>channel Name</h1>
+                                <h1 style={{ fontSize: 'large' }}>{channel.username}</h1>
                                 <p style={{ fontSize: 'small' }}>150k subcribers</p>
                                 <p>g elit. Sed do eiusmod tempor incididunt ut labore</p>
                             </div>
