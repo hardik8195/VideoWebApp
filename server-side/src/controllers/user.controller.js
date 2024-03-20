@@ -295,7 +295,7 @@ const likes = asyncHandler(async(req,res)=>{
     .json("the video is been liked")
 })
 const dislikes = asyncHandler(async(req,res)=>{
-    const videoId = req.params.id;
+    const videoId = req.params.videoId;
     await Video.findByIdAndUpdate(videoId,{
         $addToSet:{dislikes:req.user._id},
         $pull:{likes:req.user._id}

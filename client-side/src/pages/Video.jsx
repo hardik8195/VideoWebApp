@@ -1,16 +1,20 @@
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import Button from '../components/Button';
 import Recommendation from '../components/Recommendation';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setVideo } from '../store/videoSlice';
+import { dislike, like, setVideo } from '../store/videoSlice';
+import { format } from 'timeago.js';
+import { subscription } from '../store/authSlice';
 export default function Video() {
     const path = useLocation().pathname.split("/")[2]
-
     const {video} = useSelector((state)=>state.video)
+    const {user}  = useSelector((state)=>state.auth)
     const dispatch = useDispatch()
     const [channel,setChannel] = useState({})
 
@@ -26,13 +30,28 @@ export default function Video() {
             }
         })()
     },[path,dispatch])
+
+    const handleLike = async () => {
+        await axios.put(`/api/v1/users/like/${video._id}`)
+        dispatch(like(user.data.loggedInUser._id))
+    }
+    const handleDislike = async () => {
+        await axios.put(`/api/v1/users/dislike/${video._id}`)
+        dispatch(dislike(user.data.loggedInUser._id))
+    }
+    const handleSubscribe = async () => {
+        user.data.loggedInUser.subscribedUsers.includes(channel._id) ? 
+        await axios.put(`/api/v1/users/unsub/${channel._id}`) :
+        await axios.put(`/api/v1/users/sub/${channel._id}`)
+
+        dispatch(subscription(channel._id))
+    } 
     return (
         <div className="flex gap-5">
             <div className="flex-5">
                 <iframe
                     src={video.videoFile}
-                    frameborder="0"
-                    allowfullscreen
+                    
                     width="100%"
                     height="550"
                 />
@@ -40,16 +59,26 @@ export default function Video() {
                     <h1>{video.title}</h1>
                     <div className="flex">
                         <div className="flex-1">
-                            <p>7000 views . 22 june</p>
+                            <p>{video.views} views . {format(video.createdAt)}</p>
                         </div>
                         <div className="flex gap-3">
                             <div className='flex gap-1' >
-                                <ThumbUpIcon />
+                            <div className='cursor-pointer' onClick={handleLike}>
+                            {video.likes.includes(user.data.loggedInUser._id)?
+                                <ThumbUpIcon /> :
+                                <ThumbUpOffAltIcon />
+                            }
+                            </div>
                                 <p>Like</p>
                             </div>
                             <div className='flex gap-1' >
-                                <ThumbDownIcon />
-                                <p>Dislike</p>
+                            <div className='cursor-pointer' onClick={handleDislike}>
+                            {video.dislikes.includes(user.data.loggedInUser._id)?
+                                <ThumbDownIcon /> :
+                                <ThumbDownOffAltIcon />
+                            }
+                            </div>
+                              <p>Dislike</p>
                             </div>
                         </div>
                     </div>
@@ -59,12 +88,16 @@ export default function Video() {
                             <img src={channel.avatar} className="w-9 h-9 border rounded-full bg-black" />
                             <div>
                                 <h1 style={{ fontSize: 'large' }}>{channel.username}</h1>
-                                <p style={{ fontSize: 'small' }}>150k subcribers</p>
-                                <p>g elit. Sed do eiusmod tempor incididunt ut labore</p>
+                                <p style={{ fontSize: 'small' }}>{channel.subscribers} subcribers</p>
+                                <p>{video.desc}</p>
                             </div>
                         </div>
                         <div>
-                            <Button>SUBCRIBE</Button>
+                            <Button
+                                onClick={handleSubscribe}
+                            >
+                            {user.data.loggedInUser.subscribedUsers.includes(channel._id) ? "Subscribed":"Subscribe"}
+                            </Button>
                         </div>
                     </div>
                     <div className='flex my-3'>

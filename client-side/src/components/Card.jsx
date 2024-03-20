@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { format } from "timeago.js";
 
 export default function Card({video}){
     const [channel,setChannel] = useState({});
+    const {status} = useSelector((state)=>state.auth)
     useEffect(()=>{
         (async () => {
             const res = await axios.get(`/api/v1/users/find/${video.userId}`)
@@ -12,7 +14,7 @@ export default function Card({video}){
         })()
     },[video.userId])
     return (
-        <Link to={`/video/${video._id}`} style={{textDecoration:"none"}}>
+        <Link to={status?`/video/${video._id}`: "/login" } style={{textDecoration:"none"}}>
         <div className="w-360 mb-45 cursor-pointer">
             <img className="w-full h-202" src={video.thumbnail}/>
             <div className="my-3 flex gap-2">

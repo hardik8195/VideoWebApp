@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function UploadVideo(){
     const [title,setTitle] = useState("");
+    const [desc,setDesc] = useState("")
     const [thumbnail,setThumbnail] = useState();
     const [videoFile,setVideoFile] = useState()
     const [loading,setLoading] = useState(false)
@@ -13,6 +14,7 @@ export default function UploadVideo(){
         e.preventDefault();
         const formData = new FormData();
         formData.append('title', title);
+        formData.append('desc',desc)
         formData.append('thumbnail', thumbnail);
         formData.append('videoFile', videoFile);
 
@@ -43,6 +45,14 @@ export default function UploadVideo(){
                     <input 
                     type="text"
                     onChange={(e)=>setTitle(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required />
+                </div>
+
+                <div className="mb-4">
+                    <label for="desc" className="block text-gray-600 text-sm font-medium mb-2">Description</label>
+                    <input 
+                    type="text"
+                    onChange={(e)=>setDesc(e.target.value)}
                     className="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required />
                 </div>
 
