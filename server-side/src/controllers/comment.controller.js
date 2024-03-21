@@ -18,9 +18,7 @@ const addComment = asyncHandler(async(req,res)=>{
 
     return res
     .status(201)
-    .json(
-        new ApiResponse(200,comment,"Successfully added comment")
-    )
+    .json(comment)
 })
 
 const deleteComment = asyncHandler(async(req,res)=>{
@@ -40,8 +38,6 @@ const deleteComment = asyncHandler(async(req,res)=>{
 
 const getComment = asyncHandler(async(req,res)=>{
     const comments = await Comment.find({ videoId: req.params.videoId });
-    res.status(200).json(comments);
-
     return res
     .status(201)
     .json(comments)

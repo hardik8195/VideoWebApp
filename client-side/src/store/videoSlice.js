@@ -34,7 +34,8 @@ const videoSlice = createSlice({
                     1
                 );
             }
-        }
+        },
+        
     },
 })
 
