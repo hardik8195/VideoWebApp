@@ -16,8 +16,8 @@ export default function Card({video}){
     return (
         <Link to={status?`/video/${video._id}`: "/login" } style={{textDecoration:"none"}}>
         <div className="w-360 mb-45 cursor-pointer">
-            <img className="w-full h-202" src={video.thumbnail}/>
-            <div className="my-3 flex gap-2">
+            <img className="w-full h-202 rounded-lg" src={video.thumbnail}/>
+            <div className={`my-3 flex flex-wrap gap-2`}>
                 <img src={channel.avatar} className="w-9 h-9 border rounded-full bg-black" />
                 <p className="text-white">{video.title}</p>
             </div>

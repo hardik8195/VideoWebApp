@@ -28,7 +28,7 @@ const Comments = () => {
         try {
         setLoading(true)
             const res = await axios.post("/api/v1/comments", { desc: usercomment, videoId: video._id })
-            dispatch(addComment({_id:res.data._id,desc:usercomment}))
+            dispatch(addComment({_id:res.data._id,userId:res.data.userId,desc:usercomment}))
         setLoading(false)
             
         } catch (error) {

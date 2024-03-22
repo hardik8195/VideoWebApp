@@ -23,15 +23,17 @@ const addComment = asyncHandler(async(req,res)=>{
 
 const deleteComment = asyncHandler(async(req,res)=>{
     const comment = await Comment.findById(req.params.id);
-    const video = await Video.findById(res.params.id);
-
-    if (req.user._id === comment.userId || req.user._id === video.userId) {
-      await Comment.findByIdAndDelete(req.params.id);
-      return res
-      .status(200)
-      .json("Successfully deleted comment")
-    } else {
-      return new ApiError(401,"You are not the owner")
+    try {
+        if (req.user._id == comment.userId) {
+          await Comment.findByIdAndDelete(req.params.id);
+          return res
+          .status(200)
+          .json("Successfully deleted comment")
+        } else {
+          return new ApiError(401,"You are not the owner")
+        }
+    } catch (error) {
+        console.log(error)
     }
 
 })

@@ -1,99 +1,26 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Card from './Card'
 
 const Recommendation = () => {
+    const [videos,setVideos] = useState([])
+    useEffect(()=>{
+        (async()=>{
+            try {
+                const res = await axios.get("/api/v1/videos/random")
+                setVideos(res.data)
+            } catch (error) {
+                console.log(error)
+            }
+        })()
+    },[])
     return (
         <>
-        <Link style={{ textDecoration: "none" }}>
-        <div >
-            <div className="flex gap-2 w-1/2 mb-45 cursor-pointer text-white">
-                <img className="w-full h-102" />
-                <div className="my-3">
-                    <p>Title</p>
-                    <p>Lama dev</p>
-                </div>
-            </div>
-        </div>
-        </Link>
-
-        <Link style={{ textDecoration: "none" }}>
-        <div >
-            <div className="flex gap-2 w-1/2 mb-45 cursor-pointer text-white">
-                <img className="w-full h-102" />
-                <div className="my-3">
-                    <p>Title</p>
-                    <p>Lama dev</p>
-                </div>
-            </div>
-        </div>
-        </Link>
-        <Link style={{ textDecoration: "none" }}>
-        <div >
-            <div className="flex gap-2 w-1/2 mb-45 cursor-pointer text-white">
-                <img className="w-full h-102" />
-                <div className="my-3">
-                    <p>Title</p>
-                    <p>Lama dev</p>
-                </div>
-            </div>
-        </div>
-        </Link>
-        <Link style={{ textDecoration: "none" }}>
-        <div >
-            <div className="flex gap-2 w-1/2 mb-45 cursor-pointer text-white">
-                <img className="w-full h-102" />
-                <div className="my-3">
-                    <p>Title</p>
-                    <p>Lama dev</p>
-                </div>
-            </div>
-        </div>
-        </Link>
-        <Link style={{ textDecoration: "none" }}>
-        <div >
-            <div className="flex gap-2 w-1/2 mb-45 cursor-pointer text-white">
-                <img className="w-full h-102" />
-                <div className="my-3">
-                    <p>Title</p>
-                    <p>Lama dev</p>
-                </div>
-            </div>
-        </div>
-        </Link>
-        <Link style={{ textDecoration: "none" }}>
-        <div >
-            <div className="flex gap-2 w-1/2 mb-45 cursor-pointer text-white">
-                <img className="w-full h-102" />
-                <div className="my-3">
-                    <p>Title</p>
-                    <p>Lama dev</p>
-                </div>
-            </div>
-        </div>
-        </Link>
-        <Link style={{ textDecoration: "none" }}>
-        <div >
-            <div className="flex gap-2 w-1/2 mb-45 cursor-pointer text-white">
-                <img className="w-full h-102" />
-                <div className="my-3">
-                    <p>Title</p>
-                    <p>Lama dev</p>
-                </div>
-            </div>
-        </div>
-        </Link>
-
-        <Link style={{ textDecoration: "none" }}>
-        <div >
-            <div className="flex gap-2 w-1/2 mb-45 cursor-pointer text-white">
-                <img className="w-full h-102" />
-                <div className="my-3">
-                    <p>Title</p>
-                    <p>Lama dev</p>
-                </div>
-            </div>
-        </div>
-        </Link>
+            {
+                videos.map((video)=>(
+                    <Card key={video._id} video={video}/>
+                ))
+            }
         </>
 
 

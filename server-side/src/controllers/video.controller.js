@@ -129,13 +129,15 @@ const getbyTags = asyncHandler(async(req,res)=>{
 })
 const getbySearch = asyncHandler(async(req,res)=>{
     const query = req.query.q
-    const videos = await Video.find({
-        title: { $regex: query, $options: "i" },
-      }).limit(40);
-
-    return res
-    .status(201)
-    .json(videos)
+    try {
+        const videos = await Video.find({
+            title: { $regex: query, $options: "i" },
+          }).limit(40);
+    
+        res.status(201).json(videos)
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 export {

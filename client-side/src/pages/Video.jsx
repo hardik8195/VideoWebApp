@@ -53,11 +53,11 @@ export default function Video() {
             <div className="flex-5">
                 <iframe
                     src={video.videoFile}
-
+                    allowFullScreen
                     width="100%"
-                    height="550"
+                    height="525"
                 />
-                <div className="text-white">
+                <div className="text-white my-3">
                     <h1>{video.title}</h1>
                     <div className="flex">
                         <div className="flex-1">

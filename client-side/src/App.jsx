@@ -7,6 +7,7 @@ import Video from "./pages/Video"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import UploadVideo from "./pages/UploadVideo"
+import Search from "./pages/Search"
 
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
                 <Route index element={<Home type="random"/>} />
                 <Route path="trends" element={<Home type="trend"/>} />
                 <Route path="subscriptions" element={<Home type="sub"/>} />
+                <Route path="search" element={<Search />} />
                 <Route path="video">
                   <Route path=":id" element={<Video />} />
                 </Route>

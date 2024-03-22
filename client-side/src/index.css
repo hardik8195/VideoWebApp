@@ -23,6 +23,9 @@
 .h-102{
   height: 102px;
 }
+.max-h-720{
+  max-height: 720px;
+}
 
 .roboto-thin {
   font-family: "Roboto", sans-serif;

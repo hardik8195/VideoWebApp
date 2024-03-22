@@ -55,7 +55,7 @@ export default function Menubar() {
               <p className="text-white">Explore</p>
             </li>
           </Link>
-          <Link to="subscriptions">
+          <Link  to={userStatus?"subscriptions":"login"}>
           <li className="flex gap-1 my-1">
             <SubscriptionsIcon className="text-white" />
             <p className="text-white">Subscriptions</p>
