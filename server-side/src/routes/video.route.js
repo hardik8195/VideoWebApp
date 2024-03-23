@@ -34,5 +34,5 @@ router.route('/random').get(random);
 router.route('/sub').get(verifyJWT, sub);
 router.route('/trend').get(trend);
 router.route('/tags').get(verifyJWT, getbyTags);
-router.route('/search').get(verifyJWT, getbySearch);
+router.route('/search').get(getbySearch);
 export default router

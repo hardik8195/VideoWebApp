@@ -8,6 +8,8 @@ import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import UploadVideo from "./pages/UploadVideo"
 import Search from "./pages/Search"
+import Profile from "./pages/Profile"
+import ChangeProfile from "./components/ChangeProfile"
 
 
 export default function App() {
@@ -30,6 +32,8 @@ export default function App() {
                 <Route path="register" element={<Signup />} />
                 <Route path="login" element = {<Login />} />
                 <Route path="addVideo" element = {<UploadVideo/>} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="change-profile" element={<ChangeProfile />} />
               </Route>
             </Routes>
           </div>

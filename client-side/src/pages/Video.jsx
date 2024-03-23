@@ -6,18 +6,21 @@ import Button from '../components/Button';
 import Recommendation from '../components/Recommendation';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { dislike, like, setVideo } from '../store/videoSlice';
 import { format } from 'timeago.js';
 import { subscription } from '../store/authSlice';
 import Comments from '../components/Comments';
+import DeleteIcon from '@mui/icons-material/Delete';
 export default function Video() {
     const path = useLocation().pathname.split("/")[2]
     const { video } = useSelector((state) => state.video)
     const { user } = useSelector((state) => state.auth)
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     const [channel, setChannel] = useState({})
+    const navigate = useNavigate()
 
     useEffect(() => {
         (async () => {
@@ -26,7 +29,7 @@ export default function Video() {
                 const channelRes = await axios.get(`/api/v1/users/find/${videoRes.data.userId}`)
                 dispatch(setVideo(videoRes.data))
                 setChannel(channelRes.data)
-                
+
             } catch (error) {
                 console.log(error)
             }
@@ -48,6 +51,18 @@ export default function Video() {
 
         dispatch(subscription(channel._id))
     }
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        try {
+            setLoading(true)
+            await axios.delete(`/api/v1/videos/${video._id}`)
+            setLoading(false)
+            navigate("/")
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <div className="flex gap-5">
             <div className="flex-5">
@@ -64,6 +79,14 @@ export default function Video() {
                             <p>{video.views} views . {format(video.createdAt)}</p>
                         </div>
                         <div className="flex gap-3">
+                            {
+                                user.data.loggedInUser._id == video.userId ?
+                                    <div>
+                                        <button onClick={handleDelete}>
+                                            <DeleteIcon />{loading ? "Deleting" : "Delete"}</button>
+                                    </div> : null
+                            }
+
                             <div className='flex gap-1' >
                                 <div className='cursor-pointer' onClick={handleLike}>
                                     {video.likes.includes(user.data.loggedInUser._id) ?
@@ -104,9 +127,9 @@ export default function Video() {
                     </div>
                 </div>
 
-                <Comments/>
-               </div>
-                
+                <Comments />
+            </div>
+
             <div className="flex-2">
                 <Recommendation />
             </div>

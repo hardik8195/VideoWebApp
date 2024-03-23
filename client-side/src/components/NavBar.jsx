@@ -25,7 +25,7 @@ export default function NavBar() {
                 </div>
                 {user ? <div className="my-3 flex gap-4">
                     <Link to="addVideo"><VideoCallIcon style={{ color: "white", fontSize: '40px' }} /></Link>
-                    <img src={user.data.loggedInUser.avatar} className="w-9 h-9 border rounded-full bg-black" />
+                    <Link to="profile"><img src={user.data.loggedInUser.avatar} className="w-9 h-9 border rounded-full bg-black" /></Link>
                     <p className="text-white">{user.data.loggedInUser.username}</p>
                 </div> : <button onClick={() => navigate("/login")} className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">
                     Sign In
