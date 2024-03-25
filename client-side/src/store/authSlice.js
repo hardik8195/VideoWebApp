@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     user: null,
-    status: false
+    status: false,
 }
 
 const authSlice = createSlice({
@@ -28,10 +28,22 @@ const authSlice = createSlice({
             } else {
                 state.user.data.loggedInUser.subscribedUsers.push(action.payload)
             }
-        }
+        },
+        savedVideos : (state,action) => {
+            if (state.user.data.loggedInUser.savedVideos.includes(action.payload)) {
+                state.user.data.loggedInUser.savedVideos.splice(
+                    state.user.data.loggedInUser.savedVideos.findIndex(
+                        (VideoId) => VideoId === action.payload
+                    ),
+                    1
+                );
+            } else {
+                state.user.data.loggedInUser.savedVideos.push(action.payload)
+            }
+        },
     }
 })
 
-export const { loginSuccess, logout ,subscription} = authSlice.actions;
+export const { loginSuccess, logout ,subscription,savedVideos} = authSlice.actions;
 
 export default authSlice.reducer;

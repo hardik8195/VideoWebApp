@@ -43,7 +43,11 @@ const userSchema = new mongoose.Schema(
         subscribedUsers:{
             type:[String],
             default:[]
-        }
+        },
+        savedVideos : {
+            type : [String],
+            default : []
+        },
 
     },
     {

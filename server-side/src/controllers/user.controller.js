@@ -285,6 +285,26 @@ const unsubcribe = asyncHandler(async(req,res)=>{
  
  })
 
+ const save = asyncHandler(async(req,res) => {
+    await User.findByIdAndUpdate(req.user._id , {
+        $push : {savedVideos:req.params.videoId}
+    })
+    return res
+    .status(200)
+    .json("successfully saved video")
+ })
+
+ const unsave = asyncHandler(async(req,res) => {
+
+    await User.findByIdAndUpdate(req.user._id , {
+        $pull : {savedVideos:req.params.videoId}
+    })
+
+    return res
+    .status(200)
+    .json("successfully unsaved video")
+ })
+
 const likes = asyncHandler(async(req,res)=>{
     const videoId = req.params.id;
     await Video.findByIdAndUpdate(videoId,{
@@ -317,6 +337,8 @@ export {
     subcribe,
     unsubcribe,
     likes,
-    dislikes
+    dislikes,
+    save,
+    unsave
 }
 

@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     video: null,
-    status: false
+    status: false,
+    savedVideos : []
 }
 
 const videoSlice = createSlice({

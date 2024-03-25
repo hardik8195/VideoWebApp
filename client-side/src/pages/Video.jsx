@@ -10,10 +10,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { dislike, like, setVideo } from '../store/videoSlice';
 import { format } from 'timeago.js';
-import { subscription } from '../store/authSlice';
+import { savedVideos, subscription } from '../store/authSlice';
 import Comments from '../components/Comments';
 import DeleteIcon from '@mui/icons-material/Delete';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 export default function Video() {
+
     const path = useLocation().pathname.split("/")[2]
     const { video } = useSelector((state) => state.video)
     const { user } = useSelector((state) => state.auth)
@@ -63,6 +66,13 @@ export default function Video() {
             console.log(error)
         }
     }
+    const handleLibary = async () => {
+         user.data.loggedInUser.savedVideos.includes(video._id) ? 
+         await axios.put(`/api/v1/users/unsave/${video._id}`) :
+         await axios.put(`/api/v1/users/save/${video._id}`)
+         
+         dispatch(savedVideos(video._id))
+    }
     return (
         <div className="flex gap-5">
             <div className="flex-5">
@@ -86,6 +96,18 @@ export default function Video() {
                                             <DeleteIcon />{loading ? "Deleting" : "Delete"}</button>
                                     </div> : null
                             }
+
+                            <div className='flex gap-1' >
+                                <div className='cursor-pointer' onClick={handleLibary}>
+                                    {user.data.loggedInUser.savedVideos.includes(video._id) ?
+                                        <BookmarkIcon /> :
+                                        <BookmarkBorderIcon />
+                                    }
+                                </div>
+                                <p>{user.data.loggedInUser.savedVideos.includes(video._id)?
+                                    "Unsave" : "Save"
+                                    }</p>
+                            </div>
 
                             <div className='flex gap-1' >
                                 <div className='cursor-pointer' onClick={handleLike}>

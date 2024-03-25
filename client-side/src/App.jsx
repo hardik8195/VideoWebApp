@@ -10,6 +10,7 @@ import UploadVideo from "./pages/UploadVideo"
 import Search from "./pages/Search"
 import Profile from "./pages/Profile"
 import ChangeProfile from "./components/ChangeProfile"
+import Libary from "./pages/Libary"
 
 export default function App() {
   
@@ -34,6 +35,7 @@ export default function App() {
                 <Route path="addVideo" element={<UploadVideo />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="change-profile" element={<ChangeProfile />} />
+                <Route path="libary" element={<Libary />} />
               </Route>
             </Routes>
           </div>

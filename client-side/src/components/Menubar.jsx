@@ -63,11 +63,12 @@ export default function Menubar() {
           </Link>
 
           <hr className="m-3" />
-
+          <Link to="libary">
           <li className="flex gap-1 my-1">
             <LibraryAddIcon className="text-white" />
             <p className="text-white ">Libary</p>
           </li>
+          </Link>
           <li className="flex gap-1 my-1">
             <HistoryIcon className="text-white" />
             <p className="text-white">History</p>

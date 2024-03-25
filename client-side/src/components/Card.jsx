@@ -15,7 +15,7 @@ export default function Card({video}){
     },[video.userId])
     return (
         <Link to={status?`/video/${video._id}`: "/login" } style={{textDecoration:"none"}}>
-        <div onClick={()=>setViews(video.views+1)} className="w-360 mb-45 cursor-pointer">
+        <div  className="w-360 mb-45 cursor-pointer">
             <img className="w-full h-202 rounded-lg" src={video.thumbnail}/>
             <div className={`my-3 flex flex-wrap gap-2`}>
                 <img src={channel.avatar} className="w-9 h-9 border rounded-full bg-black" />
