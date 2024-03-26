@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { format } from "timeago.js";
+import conf from "../conf/conf.js";
 
 export default function Card({video}){
     const [channel,setChannel] = useState({});
     const {status} = useSelector((state)=>state.auth)
     useEffect(()=>{
         (async () => {
-            const res = await axios.get(`/api/v1/users/find/${video.userId}`)
+            const res = await axios.get("https://youtube-1-i4hw.onrender.com/api/v1/users/find/${video.userId}")
             setChannel(res.data)
         })()
     },[video.userId])
