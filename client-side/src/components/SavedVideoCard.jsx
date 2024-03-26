@@ -12,8 +12,8 @@ const SavedVideoCard = ({videoId}) => {
     useEffect(()=>{
         (async () => {
             try {
-                const videoRes = await axios.get(`/api/v1/videos/find/${videoId}`)
-                const channelRes = await axios.get(`/api/v1/users/find/${videoRes.data.userId}`)
+                const videoRes = await axios.get(`https://youtube-1-i4hw.onrender.com/api/v1/videos/find/${videoId}`)
+                const channelRes = await axios.get(`https://youtube-1-i4hw.onrender.com/api/v1/users/find/${videoRes.data.userId}`)
                 setVideo(videoRes.data)
                 setChannel(channelRes.data)
             } catch (error) {

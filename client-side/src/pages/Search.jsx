@@ -9,7 +9,7 @@ const Search = () => {
     useEffect(()=>{
         (async()=>{
             try {
-                const fetchVideos = await axios.get(`/api/v1/videos/search${query}`)
+                const fetchVideos = await axios.get(`https://youtube-1-i4hw.onrender.com/api/v1/videos/search${query}`)
                 setVideos(fetchVideos.data)
             } catch (error) {
                 console.log(error)

@@ -12,7 +12,7 @@ const Comment = ({comment}) => {
   useEffect(()=>{
     (async()=>{
       try {
-        const res = await axios.get(`/api/v1/users/find/${comment.userId}`)
+        const res = await axios.get(`https://youtube-1-i4hw.onrender.com/api/v1/users/find/${comment.userId}`)
         setChannel(res.data)
       } catch (error) {
         console.log(error)
@@ -24,7 +24,7 @@ const Comment = ({comment}) => {
     e.preventDefault();
 
     try {
-      await axios.delete(`/api/v1/comments/${comment._id}`)
+      await axios.delete(`https://youtube-1-i4hw.onrender.com/api/v1/comments/${comment._id}`)
       dispatch(deleteComment(comment._id))
     } catch (error) {
       console.log(error)

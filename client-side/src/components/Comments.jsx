@@ -15,7 +15,7 @@ const Comments = () => {
         (async () => {
 
             try {
-                const CommentRes = await axios.get(`/api/v1/comments/${video._id}`)
+                const CommentRes = await axios.get(`https://youtube-1-i4hw.onrender.com/api/v1/comments/${video._id}`)
                 dispatch(setItems(CommentRes.data))
             } catch (error) {
                 console.log(error)
@@ -27,7 +27,7 @@ const Comments = () => {
 
         try {
         setLoading(true)
-            const res = await axios.post("/api/v1/comments", { desc: usercomment, videoId: video._id })
+            const res = await axios.post("https://youtube-1-i4hw.onrender.com/api/v1/comments", { desc: usercomment, videoId: video._id })
             dispatch(addComment({_id:res.data._id,userId:res.data.userId,desc:usercomment}))
         setLoading(false)
             

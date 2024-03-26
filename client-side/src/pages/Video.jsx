@@ -28,8 +28,8 @@ export default function Video() {
     useEffect(() => {
         (async () => {
             try {
-                const videoRes = await axios.get(`/api/v1/videos/find/${path}`)
-                const channelRes = await axios.get(`/api/v1/users/find/${videoRes.data.userId}`)
+                const videoRes = await axios.get(`https://youtube-1-i4hw.onrender.com/api/v1/videos/find/${path}`)
+                const channelRes = await axios.get(`https://youtube-1-i4hw.onrender.com/api/v1/users/find/${videoRes.data.userId}`)
                 dispatch(setVideo(videoRes.data))
                 setChannel(channelRes.data)
 
@@ -40,17 +40,17 @@ export default function Video() {
     }, [path, dispatch])
 
     const handleLike = async () => {
-        await axios.put(`/api/v1/users/like/${video._id}`)
+        await axios.put(`https://youtube-1-i4hw.onrender.com/api/v1/users/like/${video._id}`)
         dispatch(like(user.data.loggedInUser._id))
     }
     const handleDislike = async () => {
-        await axios.put(`/api/v1/users/dislike/${video._id}`)
+        await axios.put(`https://youtube-1-i4hw.onrender.com/api/v1/users/dislike/${video._id}`)
         dispatch(dislike(user.data.loggedInUser._id))
     }
     const handleSubscribe = async () => {
         user.data.loggedInUser.subscribedUsers.includes(channel._id) ?
-            await axios.put(`/api/v1/users/unsub/${channel._id}`) :
-            await axios.put(`/api/v1/users/sub/${channel._id}`)
+            await axios.put(`https://youtube-1-i4hw.onrender.com/api/v1/users/unsub/${channel._id}`) :
+            await axios.put(`https://youtube-1-i4hw.onrender.com/api/v1/users/sub/${channel._id}`)
 
         dispatch(subscription(channel._id))
     }
@@ -59,7 +59,7 @@ export default function Video() {
         e.preventDefault();
         try {
             setLoading(true)
-            await axios.delete(`/api/v1/videos/${video._id}`)
+            await axios.delete(`https://youtube-1-i4hw.onrender.com/api/v1/videos/${video._id}`)
             setLoading(false)
             navigate("/")
         } catch (error) {
@@ -68,8 +68,8 @@ export default function Video() {
     }
     const handleLibary = async () => {
          user.data.loggedInUser.savedVideos.includes(video._id) ? 
-         await axios.put(`/api/v1/users/unsave/${video._id}`) :
-         await axios.put(`/api/v1/users/save/${video._id}`)
+         await axios.put(`https://youtube-1-i4hw.onrender.com/api/v1/users/unsave/${video._id}`) :
+         await axios.put(`https://youtube-1-i4hw.onrender.com/api/v1/users/save/${video._id}`)
          
          dispatch(savedVideos(video._id))
     }

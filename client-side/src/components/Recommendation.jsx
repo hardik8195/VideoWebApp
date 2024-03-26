@@ -11,7 +11,7 @@ const Recommendation = () => {
     useEffect(()=>{
         (async()=>{
             try {
-                const res = await axios.get("/api/v1/videos/random")
+                const res = await axios.get("https://youtube-1-i4hw.onrender.com/api/v1/videos/random")
                 setVideos(res.data)
             } catch (error) {
                 console.log(error)
