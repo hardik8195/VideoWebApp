@@ -15,7 +15,7 @@ const ChangeProfile = () => {
 
         try {
             setLoading(true)
-            await axios.patch("/api/v1/users/update-account",{email:email,fullName:fullName,username:username})
+            await axios.patch(`/api/v1/users/update-account`,{email:email,fullName:fullName,username:username})
             setLoading(false)
             navigate("/login")
         } catch (error) {
