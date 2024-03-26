@@ -7,6 +7,7 @@ dotenv.config();
 const app = express();
 app.use(cors({
     origin:"https://you-tube-ouffmwlti-bondman8195s-projects.vercel.app",
+    methods : ["POST","GET","DELETE","PUT","PATCH"],
     credentials:true
 }))
 
