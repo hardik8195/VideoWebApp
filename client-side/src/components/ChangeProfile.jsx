@@ -15,7 +15,7 @@ const ChangeProfile = () => {
 
         try {
             setLoading(true)
-            await axios.patch(`https://youtube-1-i4hw.onrender.com/api/v1/users/update-account`,{email:email,fullName:fullName,username:username})
+            await axios.patch("https://youtube-1-i4hw.onrender.com/api/v1/users/update-account",{email:email,fullName:fullName,username:username})
             setLoading(false)
             navigate("/login")
         } catch (error) {

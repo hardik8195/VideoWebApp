@@ -10,7 +10,7 @@ export default function Card({video}){
     const {status} = useSelector((state)=>state.auth)
     useEffect(()=>{
         (async () => {
-            const res = await axios.get("https://youtube-1-i4hw.onrender.com/api/v1/users/find/${video.userId}")
+            const res = await axios.get(`https://youtube-1-i4hw.onrender.com/api/v1/users/find/${video.userId}`)
             setChannel(res.data)
         })()
     },[video.userId])
