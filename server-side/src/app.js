@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(cors({
-    origin:"https://video-tube-pj7mhrjrs-bondman8195s-projects.vercel.app",
+    origin:"https://harmonious-choux-9be213.netlify.app",
     credentials:true
 }))
 
