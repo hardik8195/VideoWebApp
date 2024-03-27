@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(cors({
-    origin:process.env.CORS_ORIGIN,
+    origin:"https://radiant-maamoul-f17be6.netlify.app",
     methods : ["POST","GET","DELETE","PUT","PATCH"],
     credentials:true
 }))
