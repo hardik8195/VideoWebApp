@@ -76,12 +76,12 @@ export default function Video() {
     return (
         <div className="flex gap-5">
             <div className="flex-5">
-                <iframe
+                {/* <iframe
                     src={video.videoFile}
                     allowFullScreen
                     width="100%"
                     height="525"
-                />
+                /> */}
                 <div className="text-white my-3">
                     <h1>{video.title}</h1>
                     <div className="flex">
