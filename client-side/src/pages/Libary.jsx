@@ -1,5 +1,4 @@
-import axios from 'axios'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import SavedVideoCard from '../components/SavedVideoCard'
 
@@ -10,7 +9,7 @@ const Libary = () => {
     <div className='flex flex-wrap gap-3'>
       {
         user.data.loggedInUser.savedVideos.map((savedVideo) => (
-          <SavedVideoCard videoId={savedVideo}/>
+          <SavedVideoCard key={savedVideo} videoId={savedVideo}/>
         ))
       }
     </div>

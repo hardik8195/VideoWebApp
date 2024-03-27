@@ -22,7 +22,7 @@ export default function Menubar() {
     e.preventDefault();
     setLoading(true)
     try {
-      const res = await axios.post("https://youtube-1-i4hw.onrender.com/api/v1/users/logout")
+      const res = await axios.post("/api/v1/users/logout")
       if(res.data) dispatch(logout())
       navigate("/")
     } catch (error) {

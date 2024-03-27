@@ -9,7 +9,8 @@ export default function Home({type}){
 
     useEffect(()=>{
         (async () => {
-            const res = await axios.get(`https://youtube-1-i4hw.onrender.com/api/v1/videos/${type}`)
+            const res = await axios.get(`/api/v1/videos/${type}`)
+            console.log(res.data)
             setVideos(res.data);
         })()
     },[type])

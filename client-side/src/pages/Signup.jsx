@@ -22,7 +22,7 @@ const Signup = () => {
         formData.append('avatar', avatar);
 
         try {
-            await axios.post("https://youtube-1-i4hw.onrender.com/api/v1/users/register",formData,{
+            await axios.post("/api/v1/users/register",formData,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
                   },

@@ -25,7 +25,7 @@ export default function UploadVideo() {
 
         try {
             setLoading(true)
-            const res = await axios.post("https://youtube-1-i4hw.onrender.com/api/v1/videos", formData, {
+            const res = await axios.post("/api/v1/videos", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

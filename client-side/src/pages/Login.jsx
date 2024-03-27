@@ -30,7 +30,7 @@ const Login = () => {
         setLoading(true)
         
         try {
-            const res = await axios.post("https://youtube-1-i4hw.onrender.com/api/v1/users/login", { username, email, password })
+            const res = await axios.post("/api/v1/users/login", { username, email, password })
             dispatch(loginSuccess(res.data))
             navigate("/")
         } catch (error) {
