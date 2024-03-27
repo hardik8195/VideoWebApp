@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(cors({
-    origin:"https://radiant-maamoul-f17be6.netlify.app",
+    origin:"https://you-tube-hk3soxpsd-bondman8195s-projects.vercel.app",
     methods : ["POST","GET","DELETE","PUT","PATCH"],
     credentials:true
 }))
