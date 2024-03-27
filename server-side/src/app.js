@@ -7,7 +7,8 @@ dotenv.config();
 const app = express();
 app.use(cors({
     origin:process.env.CORS_ORIGIN,
-    methods : ["POST","GET","DELETE","PUT","PATCH"]
+    methods : ["POST","GET","DELETE","PUT","PATCH"],
+    credentials:true
 }))
 
 app.use(express.json({limit:'16kb'}))
