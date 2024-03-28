@@ -10,10 +10,10 @@ import { Video } from "../models/video.model.js";
 const generateRefreshandAcessToken = async (userId) => {
     try {
         const user = await User.findById(userId);
-        const refreshToken = await user.generateRefreshToken();
-        const accessToken = await user.generateAccessToken();
+        const refreshToken =  user.generateRefreshToken();
+        const accessToken =  user.generateAccessToken();
 
-        user.refreshToken = refreshToken;
+        user.refreshToken = refreshToken
         await user.save({ validateBeforeSave: false });
 
         return { accessToken, refreshToken }
