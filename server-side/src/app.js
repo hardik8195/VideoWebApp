@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 app.use(cors({
-    origin:"https://harmonious-choux-9be213.netlify.app",
+    origin:process.env.CORS_ORIGIN,
     methods:["POST","GET","DELETE","PATCH","PUT"],
     credentials:true
 }))
