@@ -43,7 +43,7 @@ const registerUser = asyncHandler(async (req, res) => {
     //check for images and avatar:
     // const avatarLocalPath = req.files?.avatar[0]?.path
     // const coverImageLocalPath = req.files?.coverImage[0]?.path;  //gives an undefined error
- 
+
     let avatarLocalPath;
     if (req.files && Array.isArray(req.files.avatar) && req.files.avatar.length > 0) {
         avatarLocalPath = req.files.avatar[0].path;
@@ -113,11 +113,16 @@ const loginUser = asyncHandler(async (req, res) => {
     return res.status(200)
         .cookie("accessToken", accessToken, options)
         .cookie("refreshToken", refreshToken, options)
-        .json(
-            new ApiResponse(200, {
-                user: accessToken, refreshToken, loggedInUser
-            }, "user logged in succesfully")
-        )
+        .json({
+            status: 200,
+            data: {
+                user: accessToken,
+                refreshToken: refreshToken,
+                loggedInUser: loggedInUser
+            },
+            message: "User logged in successfully"
+        });
+
 })
 const logoutUser = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
@@ -198,7 +203,7 @@ const getUser = asyncHandler(async (req, res) => {
         .json(user)
 })
 const updateAccountDetails = asyncHandler(async (req, res) => {
-    const { fullName, email ,username} = req.body
+    const { fullName, email, username } = req.body
 
     if (!fullName || !email) throw new ApiError(401, "All fields are required");
     const user = await User.findByIdAndUpdate(
@@ -207,7 +212,7 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
             $set: {
                 fullName: fullName,
                 email: email,
-                username:username
+                username: username
             }
 
         },
@@ -250,80 +255,80 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
         )
 })
 
-const subcribe = asyncHandler(async(req,res)=>{
-   await User.findByIdAndUpdate(
-    req.user._id,
-    {
-        $push:{subscribedUsers:req.params.id}
+const subcribe = asyncHandler(async (req, res) => {
+    await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $push: { subscribedUsers: req.params.id }
+        }
+    )
+    await User.findByIdAndUpdate(
+        req.params.id, {
+        $inc: { subscribers: 1 }
     }
-   )
-   await User.findByIdAndUpdate(
-    req.params.id,{
-        $inc:{subscribers:1}
-    }
-   )
-   return res
-   .status(200)
-   .json("subscription successfull")
+    )
+    return res
+        .status(200)
+        .json("subscription successfull")
 
 })
-const unsubcribe = asyncHandler(async(req,res)=>{
+const unsubcribe = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
-     req.user._id,
-     {
-         $pull:{subscribedUsers:req.params.id}
-     }
+        req.user._id,
+        {
+            $pull: { subscribedUsers: req.params.id }
+        }
     )
     await User.findByIdAndUpdate(
-     req.params.id,{
-         $inc:{subscribers:-1}
-     }
+        req.params.id, {
+        $inc: { subscribers: -1 }
+    }
     )
     return res
-    .status(200)
-    .json("unsubscription successfull")
- 
- })
+        .status(200)
+        .json("unsubscription successfull")
 
- const save = asyncHandler(async(req,res) => {
-    await User.findByIdAndUpdate(req.user._id , {
-        $push : {savedVideos:req.params.videoId}
+})
+
+const save = asyncHandler(async (req, res) => {
+    await User.findByIdAndUpdate(req.user._id, {
+        $push: { savedVideos: req.params.videoId }
     })
     return res
-    .status(200)
-    .json("successfully saved video")
- })
+        .status(200)
+        .json("successfully saved video")
+})
 
- const unsave = asyncHandler(async(req,res) => {
+const unsave = asyncHandler(async (req, res) => {
 
-    await User.findByIdAndUpdate(req.user._id , {
-        $pull : {savedVideos:req.params.videoId}
+    await User.findByIdAndUpdate(req.user._id, {
+        $pull: { savedVideos: req.params.videoId }
     })
 
     return res
-    .status(200)
-    .json("successfully unsaved video")
- })
+        .status(200)
+        .json("successfully unsaved video")
+})
 
-const likes = asyncHandler(async(req,res)=>{
+const likes = asyncHandler(async (req, res) => {
     const videoId = req.params.id;
-    await Video.findByIdAndUpdate(videoId,{
-        $addToSet:{likes:req.user._id},
-        $pull:{dislikes:req.user._id}
+    await Video.findByIdAndUpdate(videoId, {
+        $addToSet: { likes: req.user._id },
+        $pull: { dislikes: req.user._id }
     })
     return res
-    .status(201)
-    .json("the video is been liked")
+        .status(201)
+        .json("the video is been liked")
 })
-const dislikes = asyncHandler(async(req,res)=>{
+const dislikes = asyncHandler(async (req, res) => {
     const videoId = req.params.videoId;
-    await Video.findByIdAndUpdate(videoId,{
-        $addToSet:{dislikes:req.user._id},
-        $pull:{likes:req.user._id}
+    await Video.findByIdAndUpdate(videoId, {
+        $addToSet: { dislikes: req.user._id },
+        $pull: { likes: req.user._id }
     })
     return res
-    .status(201)
-    .json("the vedio is disliked")
+        .status(201)
+        .json("the vedio is disliked")
 })
 export {
     registerUser,
