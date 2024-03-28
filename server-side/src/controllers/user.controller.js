@@ -111,13 +111,18 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 
     return res.status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
-        .json(
-            new ApiResponse(200, {
-                user: accessToken, refreshToken, loggedInUser
-            }, "user logged in succesfully")
-        )
+  .cookie("accessToken", accessToken, options)
+  .cookie("refreshToken", refreshToken, options)
+  .json({
+    status: 200,
+    data: {
+      user: accessToken,
+      refreshToken: refreshToken,
+      loggedInUser: loggedInUser
+    },
+    message: "User logged in successfully"
+  });
+
 })
 const logoutUser = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
