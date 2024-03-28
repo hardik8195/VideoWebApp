@@ -10,7 +10,7 @@ dotenv.config({
 const app = express();
 
 app.use(cors({
-    origin: "https://harmonious-choux-9be213.netlify.app",
+    origin: process.env.CORS_ORIGIN,
     credentials: true
 }))
 
