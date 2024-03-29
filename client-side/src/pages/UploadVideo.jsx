@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../utils/http';
 
 export default function UploadVideo() {
     const [title, setTitle] = useState("");
@@ -25,7 +26,7 @@ export default function UploadVideo() {
 
         try {
             setLoading(true)
-            const res = await axios.post("/api/v1/videos", formData, {
+            await axios.post(`${BACKEND_URL}/api/v1/videos`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

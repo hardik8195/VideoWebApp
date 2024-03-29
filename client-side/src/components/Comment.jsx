@@ -4,6 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from './Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteComment } from '../store/commentSlice';
+import { BACKEND_URL } from '../utils/http';
 
 const Comment = ({comment}) => {
   const [channel,setChannel] = useState({})
@@ -12,19 +13,19 @@ const Comment = ({comment}) => {
   useEffect(()=>{
     (async()=>{
       try {
-        const res = await axios.get(`https://youtube-1-i4hw.onrender.com/api/v1/users/find/${comment.userId}`)
+        const res = await axios.get(`${BACKEND_URL}/users/find/${comment.userId}`)
         setChannel(res.data)
       } catch (error) {
         console.log(error)
       }
     })()
-  },[comment.userId])
+  },[comment.userId,BACKEND_URL])
 
   const handleDelete =async (e) => {
     e.preventDefault();
 
     try {
-      await axios.delete(`/api/v1/comments/${comment._id}`)
+      await axios.delete(`${BACKEND_URL}/comments/${comment._id}`)
       dispatch(deleteComment(comment._id))
     } catch (error) {
       console.log(error)
@@ -39,7 +40,7 @@ const Comment = ({comment}) => {
           <p style={{ fontSize: 'medium' }}>{comment.desc}</p>
         </div>
       </div>
-      {user.data.loggedInUser._id===comment.userId?
+      {user._id===comment.userId?
       <Button onClick={handleDelete} className='cursor-pointer'>
         <DeleteIcon/>
       </Button>

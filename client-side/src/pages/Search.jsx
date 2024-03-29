@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
+import { BACKEND_URL } from '../utils/http'
 
 const Search = () => {
     const [videos,setVideos] = useState([])
@@ -9,13 +10,13 @@ const Search = () => {
     useEffect(()=>{
         (async()=>{
             try {
-                const fetchVideos = await axios.get(`/api/v1/videos/search${query}`)
+                const fetchVideos = await axios.get(`${BACKEND_URL}/videos/search${query}`)
                 setVideos(fetchVideos.data)
             } catch (error) {
                 console.log(error)
             }
         })()
-    },[query])
+    },[query,BACKEND_URL])
   return (
     <div className='flex flex-wrap gap-3'>
     {

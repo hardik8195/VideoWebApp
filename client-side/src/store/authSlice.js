@@ -14,31 +14,31 @@ const authSlice = createSlice({
             state.user = action.payload
         },
         logout: (state) => {
-            state.user = null,
-                state.status = false
+            state.user = null
+            state.status = false
         },
         subscription: (state, action) => {
-            if (state.user.data.loggedInUser.subscribedUsers.includes(action.payload)) {
-                state.user.data.loggedInUser.subscribedUsers.splice(
-                    state.user.data.loggedInUser.subscribedUsers.findIndex(
+            if (state.user.subscribedUsers.includes(action.payload)) {
+                state.user.subscribedUsers.splice(
+                    state.user.subscribedUsers.findIndex(
                         (channelId) => channelId === action.payload
                     ),
                     1
                 );
             } else {
-                state.user.data.loggedInUser.subscribedUsers.push(action.payload)
+                state.user.subscribedUsers.push(action.payload)
             }
         },
         savedVideos : (state,action) => {
-            if (state.user.data.loggedInUser.savedVideos.includes(action.payload)) {
-                state.user.data.loggedInUser.savedVideos.splice(
-                    state.user.data.loggedInUser.savedVideos.findIndex(
+            if (state.user.savedVideos.includes(action.payload)) {
+                state.user.savedVideos.splice(
+                    state.user.savedVideos.findIndex(
                         (VideoId) => VideoId === action.payload
                     ),
                     1
                 );
             } else {
-                state.user.data.loggedInUser.savedVideos.push(action.payload)
+                state.user.savedVideos.push(action.payload)
             }
         },
     }

@@ -15,42 +15,41 @@ import Comments from '../components/Comments';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-export default function Video() {
+import { BACKEND_URL } from '../utils/http';
 
+const Video2 = () => {
     const path = useLocation().pathname.split("/")[2]
     const { video } = useSelector((state) => state.video)
     const { user } = useSelector((state) => state.auth)
-    const [loading, setLoading] = useState(false)
-    const dispatch = useDispatch()
     const [channel, setChannel] = useState({})
+    const [loading,setLoading] = useState(false)
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     useEffect(() => {
         (async () => {
             try {
-                const videoRes = await axios.get(`/api/v1/videos/find/${path}`)
-                const channelRes = await axios.get(`/api/v1/users/find/${videoRes.data.userId}`)
+                const videoRes = await axios.get(`${BACKEND_URL}/videos/find/${path}`)
+                const channelRes = await axios.get(`${BACKEND_URL}/users/find/${videoRes.data.userId}`)
                 dispatch(setVideo(videoRes.data))
                 setChannel(channelRes.data)
 
             } catch (error) {
-                console.log(error)
+
             }
         })()
-    }, [path, dispatch])
-
+    }, [path, dispatch,BACKEND_URL])
     const handleLike = async () => {
-        await axios.put(`/api/v1/users/like/${video._id}`)
-        dispatch(like(user.data.loggedInUser._id))
+        await axios.put(`${BACKEND_URL}/users/like/${video._id}`)
+        dispatch(like(user._id))
     }
     const handleDislike = async () => {
-        await axios.put(`/api/v1/users/dislike/${video._id}`)
-        dispatch(dislike(user.data.loggedInUser._id))
+        await axios.put(`${BACKEND_URL}/users/dislike/${video._id}`)
+        dispatch(dislike(user._id))
     }
     const handleSubscribe = async () => {
-        user.data.loggedInUser.subscribedUsers.includes(channel._id) ?
-            await axios.put(`/api/v1/users/unsub/${channel._id}`) :
-            await axios.put(`/api/v1/users/sub/${channel._id}`)
+        user.subscribedUsers.includes(channel._id) ?
+            await axios.put(`${BACKEND_URL}/users/unsub/${channel._id}`) :
+            await axios.put(`${BACKEND_URL}/users/sub/${channel._id}`)
 
         dispatch(subscription(channel._id))
     }
@@ -59,7 +58,7 @@ export default function Video() {
         e.preventDefault();
         try {
             setLoading(true)
-            await axios.delete(`/api/v1/videos/${video._id}`)
+            await axios.delete(`${BACKEND_URL}/videos/${video._id}`)
             setLoading(false)
             navigate("/")
         } catch (error) {
@@ -67,16 +66,16 @@ export default function Video() {
         }
     }
     const handleLibary = async () => {
-         user.data.loggedInUser.savedVideos.includes(video._id) ? 
-         await axios.put(`/api/v1/users/unsave/${video._id}`) :
-         await axios.put(`/api/v1/users/save/${video._id}`)
-         
-         dispatch(savedVideos(video._id))
+        user.savedVideos.includes(video._id) ?
+            await axios.put(`${BACKEND_URL}/users/unsave/${video._id}`) :
+            await axios.put(`${BACKEND_URL}/users/save/${video._id}`)
+
+        dispatch(savedVideos(video._id))
     }
     return (
         <div className="flex gap-5">
             <div className="flex-5">
-                 <iframe
+                <iframe
                     src={video.videoFile}
                     allowFullScreen
                     width="100%"
@@ -90,40 +89,40 @@ export default function Video() {
                         </div>
                         <div className="flex gap-3">
                             {
-                                user.data.loggedInUser._id == video.userId ?
-                                    <div>
+                                user._id == video.userId ?
+                                    (<div>
                                         <button onClick={handleDelete}>
                                             <DeleteIcon />{loading ? "Deleting" : "Delete"}</button>
-                                    </div> : null
-                            }
+                                    </div>) : null
+                            }{" "}
 
                             <div className='flex gap-1' >
                                 <div className='cursor-pointer' onClick={handleLibary}>
-                                    {user.data.loggedInUser.savedVideos.includes(video._id) ?
-                                        <BookmarkIcon /> :
-                                        <BookmarkBorderIcon />
+                                    {user.savedVideos.includes(video._id) ?
+                                        (<BookmarkIcon />) :
+                                        (<BookmarkBorderIcon />)
                                     }
                                 </div>
-                                <p>{user.data.loggedInUser.savedVideos.includes(video._id)?
+                                <p>{user.savedVideos.includes(video._id) ?
                                     "Unsave" : "Save"
-                                    }</p>
+                                }</p>
                             </div>
 
                             <div className='flex gap-1' >
                                 <div className='cursor-pointer' onClick={handleLike}>
-                                    {video.likes.includes(user.data.loggedInUser._id) ?
-                                        <ThumbUpIcon /> :
-                                        <ThumbUpOffAltIcon />
-                                    }
+                                    {video.likes.includes(user._id) ?
+                                        (<ThumbUpIcon />) :
+                                        (<ThumbUpOffAltIcon />)
+                                    }{" "}
                                 </div>
                                 <p>Like</p>
                             </div>
                             <div className='flex gap-1' >
                                 <div className='cursor-pointer' onClick={handleDislike}>
-                                    {video.dislikes.includes(user.data.loggedInUser._id) ?
-                                        <ThumbDownIcon /> :
-                                        <ThumbDownOffAltIcon />
-                                    }
+                                    {video.dislikes.includes(user._id) ?
+                                        (<ThumbDownIcon />) :
+                                        (<ThumbDownOffAltIcon />)
+                                    }{" "}
                                 </div>
                                 <p>Dislike</p>
                             </div>
@@ -143,7 +142,7 @@ export default function Video() {
                             <Button
                                 onClick={handleSubscribe}
                             >
-                                {user.data.loggedInUser.subscribedUsers.includes(channel._id) ? "Subscribed" : "Subscribe"}
+                                {user.subscribedUsers.includes(channel._id) ? "Subscribed" : "Subscribe"}
                             </Button>
                         </div>
                     </div>
@@ -157,5 +156,8 @@ export default function Video() {
             </div>
 
         </div>
+
     )
 }
+
+export default Video2

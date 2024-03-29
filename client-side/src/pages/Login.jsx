@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from "axios"
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../store/authSlice';
+import { BACKEND_URL } from '../utils/http';
 
 const Login = () => {
     const [username, setusername] = useState("");
@@ -30,7 +31,8 @@ const Login = () => {
         setLoading(true)
         
         try {
-            const res = await axios.post("/api/v1/users/login", { username, email, password })
+            const res = await axios.post(`${BACKEND_URL}/users/login`, { username, email, password })
+            console.log(res)
             dispatch(loginSuccess(res.data))
             navigate("/")
         } catch (error) {

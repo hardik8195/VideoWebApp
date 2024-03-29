@@ -4,6 +4,7 @@ import Button from './Button';
 import Comment from './Comment';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment, setItems } from '../store/commentSlice';
+import { BACKEND_URL } from '../utils/http';
 
 const Comments = () => {
     const [usercomment, setComment] = useState("")
@@ -15,19 +16,19 @@ const Comments = () => {
         (async () => {
 
             try {
-                const CommentRes = await axios.get(`https://youtube-1-i4hw.onrender.com/api/v1/comments/${video._id}`)
+                const CommentRes = await axios.get(`${BACKEND_URL}/api/v1/comments/${video._id}`)
                 dispatch(setItems(CommentRes.data))
             } catch (error) {
                 console.log(error)
             }
         })()
-    }, [video._id])
+    }, [video._id,BACKEND_URL])
     const handleComment = async (e) => {
         e.preventDefault();
 
         try {
         setLoading(true)
-            const res = await axios.post("/api/v1/comments", { desc: usercomment, videoId: video._id })
+            const res = await axios.post(`${BACKEND_URL}/api/v1/comments`, { desc: usercomment, videoId: video._id })
             dispatch(addComment({_id:res.data._id,userId:res.data.userId,desc:usercomment}))
         setLoading(false)
             

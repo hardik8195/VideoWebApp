@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import axios from "axios";
-import conf from "../conf/conf.js";
+import { BACKEND_URL } from "../utils/http.js";
 
 
 export default function Home({type}){
@@ -9,11 +9,10 @@ export default function Home({type}){
 
     useEffect(()=>{
         (async () => {
-            const res = await axios.get(`/api/v1/videos/${type}`)
-            console.log(res.data)
+            const res = await axios.get(`${BACKEND_URL}/videos/${type}`)
             setVideos(res.data);
         })()
-    },[type])
+    },[type,setVideos,BACKEND_URL])
     return (
         <div className="flex flex-wrap justify-between p-6">
             {

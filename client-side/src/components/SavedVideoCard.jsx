@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { format } from 'timeago.js'
+import { BACKEND_URL } from '../utils/http'
 
 const SavedVideoCard = ({videoId}) => {
     const {status} = useSelector((state)=>state.auth)
@@ -12,15 +13,15 @@ const SavedVideoCard = ({videoId}) => {
     useEffect(()=>{
         (async () => {
             try {
-                const videoRes = await axios.get(`/api/v1/videos/find/${videoId}`)
-                const channelRes = await axios.get(`/api/v1/users/find/${videoRes.data.userId}`)
+                const videoRes = await axios.get(`${BACKEND_URL}/videos/find/${videoId}`)
+                const channelRes = await axios.get(`${BACKEND_URL}/users/find/${videoRes.data.userId}`)
                 setVideo(videoRes.data)
                 setChannel(channelRes.data)
             } catch (error) {
                 console.log(error)
             }
         })()
-    },[videoId])
+    },[videoId,BACKEND_URL])
   return (
     <Link to={status?`/video/${video._id}`: "/login" } style={{textDecoration:"none"}}>
         <div  className="w-360 mb-45 cursor-pointer">

@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { logout } from "../store/authSlice";
 import { useState } from "react";
+import { BACKEND_URL } from "../utils/http";
 
 export default function Menubar() {
   const navigate = useNavigate();
@@ -22,7 +23,8 @@ export default function Menubar() {
     e.preventDefault();
     setLoading(true)
     try {
-      const res = await axios.post("/api/v1/users/logout")
+      const res = await axios.post(`${BACKEND_URL}/users/logout`)
+      console.log(res.data)
       if(res.data) dispatch(logout())
       navigate("/")
     } catch (error) {

@@ -7,13 +7,13 @@ import jwt from "jsonwebtoken"
 import { Video } from "../models/video.model.js";
 
 
+
 const generateRefreshandAcessToken = async (userId) => {
     try {
         const user = await User.findById(userId);
-        const refreshToken = await user.generateRefreshToken();
-        const accessToken = await user.generateAccessToken();
-
-        user.refreshToken = refreshToken;
+        const refreshToken =  user.generateRefreshToken();
+        const accessToken =  user.generateAccessToken()
+        user.refreshToken = refreshToken
         await user.save({ validateBeforeSave: false });
 
         return { accessToken, refreshToken }
@@ -113,23 +113,15 @@ const loginUser = asyncHandler(async (req, res) => {
     return res.status(200)
         .cookie("accessToken", accessToken, options)
         .cookie("refreshToken", refreshToken, options)
-        .json({
-            status: 200,
-            data: {
-                user: accessToken,
-                refreshToken: refreshToken,
-                loggedInUser: loggedInUser
-            },
-            message: "User logged in successfully"
-        });
+        .json(loggedInUser);
 
 })
 const logoutUser = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
         req.user._id,
         {
-            $set: {
-                refreshToken: undefined
+            $unset: {
+                refreshToken: 1
             }
         },
         {

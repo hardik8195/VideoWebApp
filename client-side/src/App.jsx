@@ -3,7 +3,6 @@ import MenuBar from "./components/Menubar"
 import NavBar from "./components/NavBar"
 import "./index.css"
 import Home from "./pages/Home"
-import Video from "./pages/Video"
 import Signup from "./pages/Signup"
 import Login from "./pages/Login"
 import UploadVideo from "./pages/UploadVideo"
@@ -11,6 +10,7 @@ import Search from "./pages/Search"
 import Profile from "./pages/Profile"
 import ChangeProfile from "./components/ChangeProfile"
 import Libary from "./pages/Libary"
+import Video2 from "./pages/Video2"
 
 export default function App() {
   
@@ -28,7 +28,7 @@ export default function App() {
                 <Route path="subscriptions" element={<Home type="sub" />} />
                 <Route path="search" element={<Search />} />
                 <Route path="video">
-                  <Route path=":id" element={<Video />} />
+                  <Route path=":id" element={<Video2 />} />
                 </Route>
                 <Route path="register" element={<Signup />} />
                 <Route path="login" element={<Login />} />

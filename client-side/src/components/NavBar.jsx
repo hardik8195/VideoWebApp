@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useState } from "react";
 
 export default function NavBar() {
-    const { user } = useSelector((state) => state.auth)
+    const { user,status } = useSelector((state) => state.auth)
     const [q, setQ] = useState("")
     const navigate = useNavigate()
     return (
@@ -23,13 +23,13 @@ export default function NavBar() {
                         <SearchIcon />
                     </button>
                 </div>
-                {user ? <div className="my-3 flex gap-4">
+                {status ? (<div className="my-3 flex gap-4">
                     <Link to="addVideo"><VideoCallIcon style={{ color: "white", fontSize: '40px' }} /></Link>
-                    <Link to="profile"><img src={user.data.loggedInUser.avatar} className="w-9 h-9 border rounded-full bg-black" /></Link>
-                    <p className="text-white">{user.data.loggedInUser.username}</p>
-                </div> : <button onClick={() => navigate("/login")} className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">
+                    <Link to="profile"><img src={user.avatar} className="w-9 h-9 border rounded-full bg-black" /></Link>
+                    <p className="text-white">{user.username}</p>
+                </div>) : (<button onClick={() => navigate("/login")} className="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-700">
                     Sign In
-                </button>}
+                </button>)}
 
             </div>
         </nav>

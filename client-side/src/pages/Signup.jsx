@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { BACKEND_URL } from '../utils/http';
 
 const Signup = () => {
     const [fullName,setFullname] = useState("");
@@ -22,7 +23,7 @@ const Signup = () => {
         formData.append('avatar', avatar);
 
         try {
-            await axios.post("/api/v1/users/register",formData,{
+            await axios.post(`${BACKEND_URL}/users/register`,formData,{
                 headers: {
                     'Content-Type': 'multipart/form-data',
                   },

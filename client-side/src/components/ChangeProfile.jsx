@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Button from './Button'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../utils/http';
 
 const ChangeProfile = () => {
     const [email,setEmail] = useState("");
@@ -15,7 +16,7 @@ const ChangeProfile = () => {
 
         try {
             setLoading(true)
-            await axios.patch("/api/v1/users/update-account",{email:email,fullName:fullName,username:username})
+            await axios.patch(`${BACKEND_URL}/users/update-account`,{email:email,fullName:fullName,username:username})
             setLoading(false)
             navigate("/login")
         } catch (error) {

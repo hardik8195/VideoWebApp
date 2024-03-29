@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Card from './Card'
 import { useSelector } from 'react-redux'
+import { BACKEND_URL } from '../utils/http'
 
 const Recommendation = () => {
     const [videos,setVideos] = useState([])
@@ -11,13 +12,13 @@ const Recommendation = () => {
     useEffect(()=>{
         (async()=>{
             try {
-                const res = await axios.get("/api/v1/videos/random")
+                const res = await axios.get(`${BACKEND_URL}/videos/random`)
                 setVideos(res.data)
             } catch (error) {
                 console.log(error)
             }
         })()
-    },[])
+    },[BACKEND_URL])
     return (
         <>
             {
