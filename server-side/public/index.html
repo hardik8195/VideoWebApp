@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Documentation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    li span {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>API Documentation</h1>
+    <p>Welcome to the API Documentation of video Hosting WebApp!</p>
+    <h2>Available Routes:</h2>
+    <ul>
+      <li><span><h3>authentication routes</h3></span></li>
+      <li><span>POST</span> /api/v1/users - Get a list of all users.</li>
+      <li><span>POST</span> /api/v1/users - Create a new user.</li>
+      <li><span>PUT</span> /api/users/:id - Update an existing user.</li>
+      <li><span>DELETE</span> /api/users/:id - Delete a user by ID.</li>
+      <!-- Add more routes documentation as needed -->
+    </ul>
+  </div>
+</body>
+</html>

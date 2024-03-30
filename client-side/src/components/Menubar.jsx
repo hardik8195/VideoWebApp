@@ -24,7 +24,6 @@ export default function Menubar() {
     setLoading(true)
     try {
       const res = await axios.post(`${BACKEND_URL}/users/logout`)
-      console.log(res.data)
       if(res.data) dispatch(logout())
       navigate("/")
     } catch (error) {

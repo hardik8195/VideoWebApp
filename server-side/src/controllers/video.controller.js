@@ -46,7 +46,52 @@ const addvideo = asyncHandler(async (req, res) => {
         )
 })
 const updatevideo = asyncHandler(async (req, res) => {
-    
+    const { videoId } = req.params
+
+
+    const myVedio = await Video.findById(videoId)
+
+    if(!myVedio ||!(userVedio.owner.toString() === req.user._id.toString())){
+        throw new ApiError(400,"Cannot find the vedio")
+    }
+
+    const {title,description} = req.body;
+
+    const thumbnail = await req.file?.path
+
+    if(!(title && description))
+    {
+        throw new ApiError(400," title and discription required for updation")
+    }
+
+    if(!thumbnail){
+        throw new ApiError(400,"for update thumbnail is required")
+    }
+
+    const updatedthumbnail = await uploadOnCloudinary(thumbnail)
+    await deleteOnClodinary(myVedio.thumbnail)
+   const newVedio =  await Video.findByIdAndUpdate(videoId
+        ,
+        {
+            $set:{
+                title:title,
+                description:description,
+                thumbnail:updatedthumbnail?.url
+            }
+        },
+        {
+            new:true,
+        })
+
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                newVedio,
+                "updated successfully"
+            )
+        )
+
+
 })
 const deletevideo = asyncHandler(async (req, res) => { 
     const deletedVideo=await Video.findByIdAndDelete(req.params.id);
