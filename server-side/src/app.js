@@ -29,7 +29,6 @@ app.use(cookieParser())
 
 
 app.get('/', (req, res) => {
-  // Send the index.html file as the response
   res.sendFile('index.html');
 });
 //router import
