@@ -1,7 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv'
-import path from 'path'
+import cors from 'cors'
 
 dotenv.config({
     path: './.env'
