@@ -31,7 +31,7 @@ router.route('/:id').delete(verifyJWT, deletevideo);
 router.route('/find/:id').get(getvideo);
 router.route('/add-view').put(addView);
 router.route('/random').get(random);
-router.route('/sub').get(verifyJWT, sub);
+router.route('/sub').get(sub);
 router.route('/trend').get(trend);
 router.route('/tags').get(verifyJWT, getbyTags);
 router.route('/search').get(getbySearch);
