@@ -106,11 +106,15 @@ const deletevideo = asyncHandler(async (req, res) => {
 
 })
 const getvideo = asyncHandler(async (req, res) => { 
-    const video = await Video.findById(req.params.id);
-
-    return res
-    .status(200)
-    .json(video)
+    try {
+        const video = await Video.findById(req.params.id);
+    
+        return res
+        .status(200)
+        .json(video)
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 const addView = asyncHandler(async (req, res) => { 
