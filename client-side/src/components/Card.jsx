@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../utils/http.js";
+import {format} from "timeago.js"
+
 
 
 export default function Card({video}){
@@ -37,7 +39,7 @@ export default function Card({video}){
                 <div className="text-white">
                     <p>{channel.username}</p>
                     <div className="flex gap-3">
-                        <p>{video.views} views - {Math.round(num*100)/100} seconds</p>
+                        <p>{video.views} views - {format(video.createdAt)}</p>
                         <p></p>
                     </div>     
                 </div>
