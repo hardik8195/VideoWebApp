@@ -33,7 +33,7 @@ const SavedVideoCard = ({videoId}) => {
             <div className="text-white">
                 <p>{channel.username}</p>
                 <div className="flex gap-3">
-                    <p>{video.views} views - {format(video.createdAt)}  seconds</p>
+                    <p>{video.views} views - {format(video.createdAt)}</p>
                     <p></p>
                 </div>     
             </div>
