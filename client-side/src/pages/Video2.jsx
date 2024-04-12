@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { BACKEND_URL } from '../utils/http';
+import {format} from 'timeago.js'
 
 const Video2 = () => {
     const path = useLocation().pathname.split("/")[2]
@@ -22,7 +23,6 @@ const Video2 = () => {
     const { user } = useSelector((state) => state.auth)
     const [channel, setChannel] = useState({})
     const [loading, setLoading] = useState(false)
-    const num = video ? +(video.duration) : null
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
@@ -120,7 +120,7 @@ const Video2 = () => {
                     <h1>{video.title}</h1>
                     <div className="flex">
                         <div className="flex-1">
-                            <p>{video.views} views . {Math.round(num*100)/100} seconds</p>
+                            <p>{video.views} views . {format(video.createdAt)}</p>
                         </div>
                         <div className="flex gap-3">
                             {

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { BACKEND_URL } from '../utils/http'
+import {format} from 'timeago.js'
 
 const SavedVideoCard = ({videoId}) => {
     const {status} = useSelector((state)=>state.auth)
@@ -32,7 +33,7 @@ const SavedVideoCard = ({videoId}) => {
             <div className="text-white">
                 <p>{channel.username}</p>
                 <div className="flex gap-3">
-                    <p>{video.views} views - {video.duration}  seconds</p>
+                    <p>{video.views} views - {format(video.createdAt)}  seconds</p>
                     <p></p>
                 </div>     
             </div>

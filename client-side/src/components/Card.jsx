@@ -12,7 +12,6 @@ export default function Card({video}){
     const {status} = useSelector((state)=>state.auth)
     const [Loading,setLoading] = useState(false)
     const navigate = useNavigate()
-    const num = +(video.duration)
     useEffect(()=>{
         (async () => {
             setLoading(true)
